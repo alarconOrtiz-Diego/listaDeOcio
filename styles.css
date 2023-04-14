@@ -58,6 +58,24 @@ header {
     align-content: end;
 }
 
+#creadorListas {
+    display: none;
+    background-color: #EFE5EC;
+    width: 80%;
+    height: 50%;
+    position: absolute;
+    top: 25%;
+}
+
+#fondoOscuro {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.5;
+}
+
 footer {
     width: 100%;
     height: 10%;

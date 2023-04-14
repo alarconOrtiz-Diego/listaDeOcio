@@ -11,13 +11,22 @@
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js" defer></script>
 </head>
 <body>
+    <div id="fondoOscuro"></div>
     <header>
         <div id="contenedorHeader">
             <h2>Actualmente:</h2>
             <h5 id="actualmente">Blue Lock, Outer Wilds</h5>
         </div>
     </header>
-    <main id="contenedorListas"></main>
+    <main id="contenedorListas">
+        <div id="creadorListas">
+            <label for="">Nombre: </label>
+            <input type="text" id="inputNombre">
+            <label for="">Color: </label>
+            <input type="color" name="" id="inputColor">
+            <input id="crear" type="button" value="Crear">
+        </div>
+    </main>
     <footer>
         <ion-icon class="imgFooter" name="play-forward-circle-outline"></ion-icon>
         <ion-icon id="addLista" class="imgFooter" name="add-circle-outline"></ion-icon>

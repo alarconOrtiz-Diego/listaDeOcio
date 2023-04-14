@@ -1,6 +1,20 @@
 window.onload = () => {
     document.getElementById("addLista").onclick = () => {
-        crearLista("nombre", "ink")
+        document.getElementById("fondoOscuro").style.display = "block";
+        document.getElementById("creadorListas").style.display = "block";
+    }
+
+    document.getElementById("fondoOscuro").onclick = () => {
+        document.getElementById("fondoOscuro").style.display = "none";
+        document.getElementById("creadorListas").style.display = "none";
+    }
+
+    document.getElementById("crear").onclick = () => {
+        let nombre = document.getElementById("inputNombre").value;
+        let color = document.getElementById("inputColor").value;
+        crearLista(nombre, color)
+        document.getElementById("fondoOscuro").style.display = "none";
+        document.getElementById("creadorListas").style.display = "none";
     }
 }
 
