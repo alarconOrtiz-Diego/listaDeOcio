@@ -20,11 +20,19 @@
     </header>
     <main id="contenedorListas">
         <div id="creadorListas">
-            <label for="">Nombre: </label>
-            <input type="text" id="inputNombre">
-            <label for="">Color: </label>
-            <input type="color" name="" id="inputColor">
-            <input id="crear" type="button" value="Crear">
+            <div id="contenedorFormuListas">
+                <label for="">Nombre</label>
+                <input placeholder="Nombre de la lista" type="text" id="inputNombre">
+                <label for="">Descripcción</label>
+                <textarea placeholder="Descipcción para la lista" id="inputDescripcion" cols="30" rows="7"></textarea>
+                <div id="contenedorColor">
+                    <label for="">Color</label>
+                    <input type="color" name="" id="inputColor">
+                </div>
+            </div>
+            <div id="contenedorBotonCrear">
+                <input id="crear" type="button" value="Crear">
+            </div>
         </div>
     </main>
     <footer>

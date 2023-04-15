@@ -34,7 +34,6 @@ header {
 .lista {
     height: 6rem;
     width: 6rem;
-    background-color: #ff86aa;
     margin: 10px;
     padding: 0.5em;
     display: flex;
@@ -60,11 +59,65 @@ header {
 
 #creadorListas {
     display: none;
-    background-color: #EFE5EC;
+    flex-direction: column;
+    background-color: #e77698;
     width: 80%;
-    height: 50%;
+    height: 60%;
     position: absolute;
-    top: 25%;
+    top: 20%;
+    color: whitesmoke;
+    border-radius: 4px;
+    border: 1px solid whitesmoke;
+    animation: pop 0.3s;
+}
+
+#contenedorFormuListas {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 85%;
+}
+
+#inputNombre {
+    width: 14em;
+    height: 2em;
+    border: none;
+    border-radius: 2px;
+    padding: 4px;
+}
+
+#inputDescripcion {
+    border: none;
+    border-radius: 2px;
+    padding: 4px;
+}
+
+#crear {
+    padding: 0.4em;
+}
+
+#contenedorFormuListas * {
+    margin: 0.3em 1em 0.3em 1em;
+}
+
+#inputColor {
+    all: unset;
+    width: 6em;
+    height: 3em;
+}
+
+#contenedorBotonCrear {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 15%;
+}
+
+#contenedorColor {
+    display: flex;
+    align-items: center;
 }
 
 #fondoOscuro {
@@ -91,6 +144,38 @@ footer {
     width: 3em;
     height: 3em;
     margin: 0 1em 0 1em;
+}
+
+@keyframes pulsado {
+    from {
+        scale: 1;
+    }
+
+    40% {
+        scale: 0.9;
+    }
+
+    80% {
+        scale: 1.1;
+    }
+
+    to {
+        scale: 1;
+    }
+}
+
+@keyframes pop {
+    from {
+        scale: 0;
+    }
+
+    80% {
+        scale: 1.1;
+    }
+
+    to {
+        scale: 1;
+    }
 }
 
 @media only screen and (min-width:390px) {

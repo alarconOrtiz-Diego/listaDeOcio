@@ -1,20 +1,24 @@
 window.onload = () => {
+    let fondoOscuro = document.querySelector("#fondoOscuro");
+    let creadorListas = document.querySelector("#creadorListas");
+
     document.getElementById("addLista").onclick = () => {
-        document.getElementById("fondoOscuro").style.display = "block";
-        document.getElementById("creadorListas").style.display = "block";
+        animacion("addLista");
+        fondoOscuro.style.display = "flex";
+        creadorListas.style.display = "block";
     }
 
     document.getElementById("fondoOscuro").onclick = () => {
-        document.getElementById("fondoOscuro").style.display = "none";
-        document.getElementById("creadorListas").style.display = "none";
+        fondoOscuro.style.display = "none";
+        creadorListas.style.display = "none";
     }
 
     document.getElementById("crear").onclick = () => {
         let nombre = document.getElementById("inputNombre").value;
         let color = document.getElementById("inputColor").value;
         crearLista(nombre, color)
-        document.getElementById("fondoOscuro").style.display = "none";
-        document.getElementById("creadorListas").style.display = "none";
+        fondoOscuro.style.display = "none";
+        creadorListas.style.display = "none";
     }
 }
 
@@ -36,4 +40,11 @@ function crearLista(nombre, color) {
         lista.style.backgroundColor = color;
         document.getElementById("contenedorListas").appendChild(lista);
     }
+}
+
+function animacion(elem) {
+    document.getElementById(elem).style.animation = "pulsado 0.3s";
+    setTimeout(() => {
+        document.getElementById(elem).style.animation = "";
+    }, 300);
 }
