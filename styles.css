@@ -60,14 +60,13 @@ header {
 #creadorListas {
     display: none;
     flex-direction: column;
-    background-color: #e77698;
+    background: linear-gradient(60deg, #9775FE, #FEAAA6);
     width: 80%;
     height: 60%;
     position: absolute;
     top: 20%;
     color: whitesmoke;
     border-radius: 4px;
-    border: 1px solid whitesmoke;
     animation: pop 0.3s;
 }
 
@@ -94,17 +93,33 @@ header {
 }
 
 #crear {
+    all: unset;
+    display: flex;
+    justify-content: center;
+    background-color: whitesmoke;
+    border-radius: 3rem;
+    width: 4em;
+    color: #333333;
     padding: 0.4em;
 }
 
-#contenedorFormuListas * {
+#contenedorFormuListas label, #contenedorFormuListas input[type="text"], #contenedorFormuListas textarea {
     margin: 0.3em 1em 0.3em 1em;
 }
 
-#inputColor {
+#contenedorSelectores {
+    display: flex;
+    align-items: center;
+    margin: 0.3em 0 0.3em 0;
+}
+
+.selectorColor {
     all: unset;
-    width: 6em;
-    height: 3em;
+    width: 1.4em;
+    height: 1.4em;
+    margin: 0.3em 0.2em 0.3em 0.2em;
+    border-radius: 50%;
+    border: 1px solid #f5f5f585;
 }
 
 #contenedorBotonCrear {
@@ -118,6 +133,7 @@ header {
 #contenedorColor {
     display: flex;
     align-items: center;
+    flex-direction: column;
 }
 
 #fondoOscuro {
@@ -132,18 +148,19 @@ header {
 footer {
     width: 100%;
     height: 10%;
-    background-color: #f5f5f5;
-    box-shadow:0 .5rem 1.5rem rgba(0,0,0,.2);
+    background: linear-gradient(20deg, #9775FE, #FEAAA6);
+    box-shadow: 0 .5rem 1.5rem rgba(0,0,0,1);
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 }
 
 .imgFooter {
     width: 3em;
     height: 3em;
-    margin: 0 1em 0 1em;
+    margin: 0 1.3em 0 1.3em;
+    filter: invert();
 }
 
 @keyframes pulsado {
