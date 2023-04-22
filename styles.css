@@ -68,6 +68,25 @@ header {
     color: whitesmoke;
     border-radius: 4px;
     animation: pop 0.3s;
+    z-index: 3;
+}
+
+.contenidoListas {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    position: absolute;
+    color: whitesmoke;
+    animation: pop 0.3s;
+    z-index: 2;
+}
+
+.tituloContenidoLista {
+    display: flex;
+    align-items: center;
+    margin: 0.8em;
 }
 
 #contenedorFormuListas {
@@ -90,6 +109,7 @@ header {
     border: none;
     border-radius: 2px;
     padding: 4px;
+    resize: none;
 }
 
 #crear {
@@ -143,6 +163,7 @@ header {
     height: 100%;
     background-color: black;
     opacity: 0.5;
+    z-index: 3;
 }
 
 footer {
@@ -161,6 +182,116 @@ footer {
     height: 3em;
     margin: 0 1.3em 0 1.3em;
     filter: invert();
+}
+
+#error {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: absolute;
+    width: 80%;
+    height: 20%;
+    top: 40%;
+    color: whitesmoke;
+    font-size: 14px;
+    font-weight: 700;
+    background-color: #e44444;
+    border-radius: 3px;
+}
+
+.addToLista {
+    position: absolute;
+    bottom: 2.5%;
+    right: 5%;
+    border-radius: 50%;
+    width: 4rem;
+    height: 4rem;
+    background-color: whitesmoke;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #333333;
+    font-size: 25px;
+    opacity: 0.8;
+}
+
+.contenedorElementos {
+    display: flex;
+    align-items: center;
+    margin: 0.7em 0 0.7em 0;
+}
+
+.contenedorElementos * {
+    margin-left: 1.5em;
+}
+
+.opcionesElementos {
+    width: 1em;
+    height: 1em;
+    filter: invert();
+}
+
+.infoLista {
+    width: 1em;
+    height: 1em;
+    filter: invert();
+    margin-left: 0.6em;
+}
+
+.imgFiltro {
+    width: 1.5em;
+    height: 1.5em;
+    filter: invert();
+    margin-left: 0.6em;
+}
+
+.elementos {
+    list-style: none;
+    font-size: 12px;
+}
+
+.listado {
+    overflow: scroll;
+}
+
+#formuNombre {
+    position: absolute;
+    width: 80%;
+    height: 25%;
+    top: 35%;
+    border-radius: 4px;
+    background-color: whitesmoke;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 4;
+    animation: pop 0.3s;
+}
+
+#formuNombre * {
+    margin: 0.7em 0 0.7em 0;
+}
+
+#formuNombre input[type=button] {
+    all: unset;
+    display: flex;
+    justify-content: center;
+    background-color: #333333;
+    border-radius: 3rem;
+    width: 4em;
+    font-size: 16px;
+    color: whitesmoke;
+    padding: 0.2em;
+    margin: 1em;
+}
+
+.contenedorFiltro {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    margin: 0.3em 0 0.7em 2em;
 }
 
 @keyframes pulsado {
@@ -186,12 +317,28 @@ footer {
         scale: 0;
     }
 
-    80% {
-        scale: 1.1;
+    to {
+        scale: 1;
+    }
+}
+
+@keyframes popInv {
+    from {
+        opacity: 1;
     }
 
     to {
-        scale: 1;
+        opacity: 0;
+    }
+}
+
+@keyframes hideLeft {
+    from {
+        left: 0;
+    }
+
+    to {
+        left: -100%;
     }
 }
 
@@ -215,5 +362,18 @@ footer {
         width: 3.5em;
         height: 3.5em;
         margin: 0 1.5em 0 1.5em;
+    }
+
+    #error {
+        font-size: 20px;
+    }
+
+    .elementos {
+        font-size: 16px;
+    }
+
+    .infoLista {
+        width: 2em;
+        height: 2em;
     }
 }

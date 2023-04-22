@@ -19,6 +19,12 @@
         </div>
     </header>
     <main id="contenedorListas">
+        <div id="error">Ya existe una lista con ese nombre</div>
+        <div id="formuNombre">
+            <p>Introduzca un nombre</p>
+            <input type="text" name="" id="inputNombreElemento">
+            <input type="button" value="Añadir">
+        </div>
         <div id="creadorListas">
             <div id="contenedorFormuListas">
                 <label for="">Nombre</label>
@@ -43,9 +49,9 @@
         </div>
     </main>
     <footer>
-        <ion-icon class="imgFooter" name="play-forward-circle-outline"></ion-icon>
+        <ion-icon id="proximos" class="imgFooter" name="play-forward-circle-outline"></ion-icon>
         <ion-icon id="addLista" class="imgFooter" name="add-circle-outline"></ion-icon>
-        <ion-icon class="imgFooter" name="checkmark-done-circle-outline"></ion-icon>
+        <ion-icon id="terminados" class="imgFooter" name="checkmark-done-circle-outline"></ion-icon>
     </footer>
 </body>
 </html>
