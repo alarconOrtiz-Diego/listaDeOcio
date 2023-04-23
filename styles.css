@@ -98,7 +98,7 @@ header {
 }
 
 #inputNombre {
-    width: 14em;
+    width: 85%;
     height: 2em;
     border: none;
     border-radius: 2px;
@@ -232,18 +232,16 @@ footer {
     filter: invert();
 }
 
-.infoLista {
+.infoLista, .volver {
     width: 1em;
     height: 1em;
     filter: invert();
     margin-left: 0.6em;
 }
 
-.imgFiltro {
-    width: 1.5em;
-    height: 1.5em;
-    filter: invert();
-    margin-left: 0.6em;
+.volver {
+    position: absolute;
+    right: 0.5em;
 }
 
 .elementos {
@@ -294,6 +292,28 @@ footer {
     margin: 0.3em 0 0.7em 2em;
 }
 
+.contenedorDescripccion {
+    background-color: whitesmoke;
+    border-radius: 5px;
+    color: #333333;
+    width: 71%;
+    height: 20%;
+    top: 10%;
+    left: 9%;
+    position: absolute;
+    display: none;
+    word-wrap: break-word;
+    padding: 1em;
+}
+
+.contenedorDescripccion p {
+    width: 100%;
+    height: 100%;
+    word-wrap: break-word;
+    text-align: center;
+    font-size: 14px;
+}
+
 @keyframes pulsado {
     from {
         scale: 1;
@@ -342,15 +362,15 @@ footer {
     }
 }
 
-@media only screen and (min-width:390px) {
+@media only screen and (min-width:360px) {
 
     * {
         font-size: 20px;
     }
 
     .lista {
-        width: 7rem;
-        height: 7rem;
+        width: 6.7rem;
+        height: 6.7rem;
         margin: 13px;
     }
 
@@ -375,5 +395,9 @@ footer {
     .infoLista {
         width: 2em;
         height: 2em;
+    }
+
+    .contenedorDescripccion p {
+        font-size: 18px;
     }
 }

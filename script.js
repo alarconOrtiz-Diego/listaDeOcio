@@ -53,9 +53,13 @@ function crearLista(nombre, descripcion, contadorUnnamed) {
         // Cositas
     } else {
         if (nombre.charAt(0) == " " || nombre == "") {
-            nombre = `Unnamed ${contadorUnnamed}`;
+            nombre = `Unnamed_${contadorUnnamed}`;
             contadorUnnamed++;
         }
+        if (nombre.length > 9)
+            nombre = nombre.slice(0, 9);
+        if (nombre.includes(" "))
+            nombre = nombre.replace(" ", "_");
         let nombresListas = document.getElementsByClassName("nombres");
         for (let i = 0; i < nombresListas.length; i++)
             if (nombresListas[i].textContent.toLocaleLowerCase() == nombre.toLocaleLowerCase()) {
@@ -102,12 +106,29 @@ function crearContenidoLista(nombre, descripcion, color) {
     let h2 = document.createElement("h2");
     h2.setAttribute("class", "tituloContenidoLista");
     h2.textContent = nombre;
+    
     contenidoLista.appendChild(h2);
 
     let infoLista = document.createElement("img");
     infoLista.src = "./media/info.png"
     infoLista.setAttribute("class", "infoLista");
+    let contenedorDescripcion = document.createElement("div");
+    contenedorDescripcion.setAttribute("class", "contenedorDescripccion");
+    contenedorDescripcion.id = `contenedorDescripccion_${nombre}`;
+    let par = document.createElement("p");
+    if (descripcion.charAt(0) == " " || descripcion == "") descripcion = "No existe descripción de esta lista"
+    par.textContent = descripcion;
+    contenedorDescripcion.appendChild(par);
+    infoLista.onclick = () => document.getElementById(`contenedorDescripccion_${nombre}`).style.display = "flex";
+    contenedorDescripcion.onclick = () => document.getElementById(`contenedorDescripccion_${nombre}`).style.display = "none";
     h2.appendChild(infoLista);
+    contenidoLista.appendChild(contenedorDescripcion);
+
+    let volver = document.createElement("img");
+    volver.src = "./media/volver.png"
+    volver.setAttribute("class", "volver");
+    volver.id = `volver_${nombre}`;
+    h2.appendChild(volver);
 
     let contenedorFiltro = document.createElement("div");
     contenedorFiltro.setAttribute("class", "contenedorFiltro");
@@ -122,28 +143,39 @@ function crearContenidoLista(nombre, descripcion, color) {
     let addToLista = document.createElement("div");
     addToLista.setAttribute("class", "addToLista");
     addToLista.textContent = "+";
-    addToLista.onclick = () => activarEventoAddToLista(listado);
+    addToLista.onclick = () => activarEventoAddToLista(listado, nombre);
     contenidoLista.appendChild(addToLista);
     document.getElementById("contenedorListas").appendChild(contenidoLista);
 }
 
-function activarEventoAddToLista(listado) {
+function eventoOpcionesElementos(nombre) {
+    console.log("ee");
+}
+
+function activarEventoAddToLista(listado, nombreLista) {
     document.getElementById("formuNombre").style.display = "flex";
     document.getElementById("fondoOscuro").style.display = "flex";
     document.querySelector("#formuNombre input[type=button]").onclick = () => {
         let nombre = document.getElementById("inputNombreElemento").value;
         if (nombre.charAt(0) !== " " && nombre !== "") {
-            let contenedorElemento = document.createElement("div");
-            contenedorElemento.setAttribute("class", "contenedorElementos")
-            let elem = document.createElement("li");
-            elem.setAttribute("class", "elementos")
-            let opcionesElementos = document.createElement("img");
-            opcionesElementos.src = "./media/menu.png"
-            opcionesElementos.setAttribute("class", "opcionesElementos");
-            elem.textContent = nombre;
-            contenedorElemento.appendChild(opcionesElementos);elem
-            contenedorElemento.appendChild(elem);
-            listado.appendChild(contenedorElemento);
+            let elementos = document.querySelectorAll(`#contenedor_${nombreLista} ul div .elementos`);
+            let repetido = false;
+            for (let i = 0; i < elementos.length; i++)
+                if (elementos[i].textContent.toLocaleLowerCase() == nombre.toLocaleLowerCase()) repetido = true;
+            if (repetido == false) {
+                let contenedorElemento = document.createElement("div");
+                contenedorElemento.setAttribute("class", "contenedorElementos")
+                let elem = document.createElement("li");
+                elem.setAttribute("class", "elementos")
+                let opcionesElementos = document.createElement("img");
+                opcionesElementos.src = "./media/menu.png"
+                opcionesElementos.setAttribute("class", "opcionesElementos");
+                elem.textContent = nombre;
+                contenedorElemento.appendChild(opcionesElementos);elem
+                contenedorElemento.appendChild(elem);
+                listado.appendChild(contenedorElemento);
+                opcionesElementos.onclick = () => eventoOpcionesElementos(nombre);
+            }
             document.getElementById("inputNombreElemento").value = "";
         }
         document.getElementById("formuNombre").style.display = "none";
@@ -158,7 +190,7 @@ function activarEventoLista(nombre, descripcion, color) {
     lista.onclick = () => {
         animacion(nombre);
         document.getElementById(`contenedor_${nombre}`).style.display = "flex";
-        window.onpopstate = (e) => botonVolver(nombre);
+        document.getElementById(`volver_${nombre}`).onclick = () => botonVolver(nombre);
     }
 }
 
@@ -166,6 +198,7 @@ function botonVolver(nombre) {
     document.getElementById(`contenedor_${nombre}`).style.animation = "hideLeft 0.3s"
     setTimeout(() => {
         document.getElementById(`contenedor_${nombre}`).style.display = "none";
+        document.getElementById(`contenedorDescripccion_${nombre}`).style.display = "none";
         document.getElementById(`contenedor_${nombre}`).style.animation = "pop 0.3s";
     }, 300);
 }
