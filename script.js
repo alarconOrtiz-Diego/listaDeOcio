@@ -86,20 +86,8 @@ function crearLista(nombre, descripcion, contadorUnnamed) {
                 return contadorUnnamed;
             }
         let lista = crearNodo("div", nombre, "lista", "#contenedorListas", "")
-        /* let lista = document.createElement("div");
-        lista.setAttribute("class", "lista");
-        lista.id = nombre; */
-        let h5 = crearNodo("h5", nombre, "nombres", `#${nombre}`, nombre)
-        /* let h5 = document.createElement("h5");
-        h5.id = nombre;
-        h5.textContent = nombre;
-        h5.setAttribute("class", "nombres"); */
-        let cantidad = crearNodo("div", "", "cantidadElementosLista", `#${nombre}`, "0")
-        /* let cantidad = document.createElement("div");
-        cantidad.setAttribute("class", "cantidadElementosLista")
-        cantidad.textContent = "0"; */
-        /* lista.appendChild(h5); */
-        /* lista.appendChild(cantidad); */
+        crearNodo("h5", nombre, "nombres", `#${nombre}`, nombre)
+        crearNodo("div", "", "cantidadElementosLista", `#${nombre}`, "0")
         let color = "";
         for (let i = 0; i < document.querySelectorAll("input[type=radio]").length; i++)
             if (document.querySelectorAll("input[type=radio]")[i].checked)
@@ -107,7 +95,6 @@ function crearLista(nombre, descripcion, contadorUnnamed) {
             if (color == "")
                 color = "#9775FE";
         lista.style.backgroundColor = color;
-        /* document.getElementById("contenedorListas").appendChild(lista); */
         activarEventoLista(nombre, descripcion, color);
     }
     return contadorUnnamed;
