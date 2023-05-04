@@ -24,6 +24,9 @@ window.onload = () => {
         fondoOscuro.style.display = "none";
         creadorListas.style.display = "none";
         document.getElementById("formuNombre").style.display = "none";
+        for (let i = 0; i < document.querySelectorAll(".panelOpciones").length; i++) {
+            document.querySelectorAll(".panelOpciones")[i].style.display = "none";
+        }
         reestablecerCreador();
     }
 
@@ -47,6 +50,15 @@ window.onload = () => {
 }
 
 // FUNCIONES UTILIZADAS
+
+function crearNodo(etiqueta, id, clase, padre, textContent) {
+    let elem = document.createElement(etiqueta);
+    elem.id = id;
+    elem.classList = clase;
+    if (textContent != "") elem.textContent = textContent;
+    document.querySelector(padre).appendChild(elem);
+    return elem;
+}
 
 function crearLista(nombre, descripcion, contadorUnnamed) {
     if (nombre == "ftuser") {
@@ -73,18 +85,21 @@ function crearLista(nombre, descripcion, contadorUnnamed) {
                 }, 3500);
                 return contadorUnnamed;
             }
-        let lista = document.createElement("div");
+        let lista = crearNodo("div", nombre, "lista", "#contenedorListas", "")
+        /* let lista = document.createElement("div");
         lista.setAttribute("class", "lista");
-        lista.id = nombre;
-        let h5 = document.createElement("h5");
+        lista.id = nombre; */
+        let h5 = crearNodo("h5", nombre, "nombres", `#${nombre}`, nombre)
+        /* let h5 = document.createElement("h5");
         h5.id = nombre;
         h5.textContent = nombre;
-        h5.setAttribute("class", "nombres");
-        let cantidad = document.createElement("div");
+        h5.setAttribute("class", "nombres"); */
+        let cantidad = crearNodo("div", "", "cantidadElementosLista", `#${nombre}`, "0")
+        /* let cantidad = document.createElement("div");
         cantidad.setAttribute("class", "cantidadElementosLista")
-        cantidad.textContent = "0";
-        lista.appendChild(h5);
-        lista.appendChild(cantidad);
+        cantidad.textContent = "0"; */
+        /* lista.appendChild(h5); */
+        /* lista.appendChild(cantidad); */
         let color = "";
         for (let i = 0; i < document.querySelectorAll("input[type=radio]").length; i++)
             if (document.querySelectorAll("input[type=radio]")[i].checked)
@@ -92,7 +107,7 @@ function crearLista(nombre, descripcion, contadorUnnamed) {
             if (color == "")
                 color = "#9775FE";
         lista.style.backgroundColor = color;
-        document.getElementById("contenedorListas").appendChild(lista);
+        /* document.getElementById("contenedorListas").appendChild(lista); */
         activarEventoLista(nombre, descripcion, color);
     }
     return contadorUnnamed;
@@ -149,7 +164,7 @@ function crearContenidoLista(nombre, descripcion, color) {
 }
 
 function eventoOpcionesElementos(nombre) {
-    console.log("ee");
+    crearNodo("div", `opciones_${nombre}`, "panelOpciones", "#contenedorListas", "");
 }
 
 function activarEventoAddToLista(listado, nombreLista) {
@@ -171,10 +186,14 @@ function activarEventoAddToLista(listado, nombreLista) {
                 opcionesElementos.src = "./media/menu.png"
                 opcionesElementos.setAttribute("class", "opcionesElementos");
                 elem.textContent = nombre;
-                contenedorElemento.appendChild(opcionesElementos);elem
+                contenedorElemento.appendChild(opcionesElementos);
                 contenedorElemento.appendChild(elem);
                 listado.appendChild(contenedorElemento);
-                opcionesElementos.onclick = () => eventoOpcionesElementos(nombre);
+                eventoOpcionesElementos(nombre);
+                opcionesElementos.onclick = () => {
+                    fondoOscuro.style.display = "flex";
+                    document.getElementById(`opciones_${nombre}`).style.display = "flex";
+                }
             }
             document.getElementById("inputNombreElemento").value = "";
         }
