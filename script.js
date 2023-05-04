@@ -68,21 +68,15 @@ function crearLista(nombre, descripcion, contadorUnnamed) {
             nombre = `Unnamed_${contadorUnnamed}`;
             contadorUnnamed++;
         }
-        if (nombre.length > 9)
-            nombre = nombre.slice(0, 9);
-        if (nombre.includes(" "))
-            nombre = nombre.replace(" ", "_");
+        if (nombre.length > 9) nombre = nombre.slice(0, 9);
+        if (nombre.includes(" ")) nombre = nombre.replace(" ", "_");
         let nombresListas = document.getElementsByClassName("nombres");
         for (let i = 0; i < nombresListas.length; i++)
             if (nombresListas[i].textContent.toLocaleLowerCase() == nombre.toLocaleLowerCase()) {
                 document.getElementById("error").style.display = "flex";
                 document.getElementById("error").style.animation = "pop 0.3s"
-                setTimeout(() => {
-                    document.getElementById("error").style.animation = "popInv 1.5s"
-                }, 2000);
-                setTimeout(() => {
-                    document.getElementById("error").style.display = "none";
-                }, 3500);
+                setTimeout(() => { document.getElementById("error").style.animation = "popInv 1.5s" }, 2000);
+                setTimeout(() => { document.getElementById("error").style.display = "none" }, 3500);
                 return contadorUnnamed;
             }
         let lista = crearNodo("div", nombre, "lista", "#contenedorListas", "")
@@ -90,10 +84,8 @@ function crearLista(nombre, descripcion, contadorUnnamed) {
         crearNodo("div", "", "cantidadElementosLista", `#${nombre}`, "0")
         let color = "";
         for (let i = 0; i < document.querySelectorAll("input[type=radio]").length; i++)
-            if (document.querySelectorAll("input[type=radio]")[i].checked)
-                color = document.querySelectorAll("input[type=radio]")[i].id;
-            if (color == "")
-                color = "#9775FE";
+            if (document.querySelectorAll("input[type=radio]")[i].checked) color = document.querySelectorAll("input[type=radio]")[i].id;
+            if (color == "") color = "#9775FE";
         lista.style.backgroundColor = color;
         activarEventoLista(nombre, descripcion, color);
     }
@@ -101,53 +93,23 @@ function crearLista(nombre, descripcion, contadorUnnamed) {
 }
 
 function crearContenidoLista(nombre, descripcion, color) {
-    let contenidoLista = document.createElement("div");
-    contenidoLista.setAttribute("class", "contenidoListas");
-    contenidoLista.id = `contenedor_${nombre}`;
+    let contenidoLista = crearNodo("div", `contenedor_${nombre}`, "contenidoListas", "#contenedorListas", "");
     contenidoLista.style.backgroundColor = color;
-    let h2 = document.createElement("h2");
-    h2.setAttribute("class", "tituloContenidoLista");
-    h2.textContent = nombre;
-    
-    contenidoLista.appendChild(h2);
-
-    let infoLista = document.createElement("img");
+    crearNodo("h2", `h2_${nombre}`, "tituloContenidoLista", `#contenedor_${nombre}`, nombre);
+    let infoLista = crearNodo("img", ``, "infoLista", `#h2_${nombre}`, "");
     infoLista.src = "./media/info.png"
-    infoLista.setAttribute("class", "infoLista");
-    let contenedorDescripcion = document.createElement("div");
-    contenedorDescripcion.setAttribute("class", "contenedorDescripccion");
-    contenedorDescripcion.id = `contenedorDescripccion_${nombre}`;
-    let par = document.createElement("p");
+    let contenedorDescripcion = crearNodo("div", `contenedorDescripccion_${nombre}`, "contenedorDescripccion", `#contenedor_${nombre}`, "");
     if (descripcion.charAt(0) == " " || descripcion == "") descripcion = "No existe descripción de esta lista"
-    par.textContent = descripcion;
-    contenedorDescripcion.appendChild(par);
+    crearNodo("p", "", "", `#contenedorDescripccion_${nombre}`, descripcion);
     infoLista.onclick = () => document.getElementById(`contenedorDescripccion_${nombre}`).style.display = "flex";
     contenedorDescripcion.onclick = () => document.getElementById(`contenedorDescripccion_${nombre}`).style.display = "none";
-    h2.appendChild(infoLista);
-    contenidoLista.appendChild(contenedorDescripcion);
-
-    let volver = document.createElement("img");
+    let volver = crearNodo("img", `volver_${nombre}`, "volver", `#h2_${nombre}`, "");
     volver.src = "./media/volver.png"
-    volver.setAttribute("class", "volver");
-    volver.id = `volver_${nombre}`;
-    h2.appendChild(volver);
-
-    let contenedorFiltro = document.createElement("div");
-    contenedorFiltro.setAttribute("class", "contenedorFiltro");
-    let p = document.createElement("p");
-    p.textContent = "Filtrar por: "
-    contenedorFiltro.appendChild(p);
-    contenidoLista.appendChild(contenedorFiltro);
-
-    let listado = document.createElement("ul");
-    listado.setAttribute("class", "listado");
-    contenidoLista.appendChild(listado);
-    let addToLista = document.createElement("div");
-    addToLista.setAttribute("class", "addToLista");
-    addToLista.textContent = "+";
+    crearNodo("div", `filtro_${nombre}`, "contenedorFiltro", `#contenedor_${nombre}`, "");
+    crearNodo("p", ``, "", `#filtro_${nombre}`, "Filtrar por: ");
+    let listado = crearNodo("ul", `list_${nombre}`, "listado", `#contenedor_${nombre}`, "");
+    let addToLista = crearNodo("div", ``, "addToLista", `#contenedor_${nombre}`, "+");
     addToLista.onclick = () => activarEventoAddToLista(listado, nombre);
-    contenidoLista.appendChild(addToLista);
-    document.getElementById("contenedorListas").appendChild(contenidoLista);
 }
 
 function eventoOpcionesElementos(nombre) {
@@ -165,17 +127,10 @@ function activarEventoAddToLista(listado, nombreLista) {
             for (let i = 0; i < elementos.length; i++)
                 if (elementos[i].textContent.toLocaleLowerCase() == nombre.toLocaleLowerCase()) repetido = true;
             if (repetido == false) {
-                let contenedorElemento = document.createElement("div");
-                contenedorElemento.setAttribute("class", "contenedorElementos")
-                let elem = document.createElement("li");
-                elem.setAttribute("class", "elementos")
-                let opcionesElementos = document.createElement("img");
+                crearNodo("div", `cont_elem_${nombre}`, "contenedorElementos", `#${listado.id}`, "");
+                let opcionesElementos = crearNodo("img", ``, "opcionesElementos", `#cont_elem_${nombre}`, "");
                 opcionesElementos.src = "./media/menu.png"
-                opcionesElementos.setAttribute("class", "opcionesElementos");
-                elem.textContent = nombre;
-                contenedorElemento.appendChild(opcionesElementos);
-                contenedorElemento.appendChild(elem);
-                listado.appendChild(contenedorElemento);
+                crearNodo("li", ``, "elementos", `#cont_elem_${nombre}`, nombre);
                 eventoOpcionesElementos(nombre);
                 opcionesElementos.onclick = () => {
                     fondoOscuro.style.display = "flex";
@@ -216,7 +171,5 @@ function reestablecerCreador() {
 
 function animacion(elem) {
     document.getElementById(elem).style.animation = "pulsado 0.3s";
-    setTimeout(() => {
-        document.getElementById(elem).style.animation = "";
-    }, 300);
+    setTimeout(() => { document.getElementById(elem).style.animation = ""; }, 300);
 }
