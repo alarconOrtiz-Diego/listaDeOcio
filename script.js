@@ -12,13 +12,9 @@ window.onload = () => {
             selector[i].style.backgroundColor = selector[i].id;
     }
 
-    document.getElementById("proximos").onclick = () => {
-        animacion("proximos");
-    }
+    document.getElementById("proximos").onclick = () => {  animacion("proximos") }
 
-    document.getElementById("terminados").onclick = () => {
-        animacion("terminados");
-    }
+    document.getElementById("terminados").onclick = () => { animacion("terminados") }
 
     document.getElementById("fondoOscuro").onclick = () => {
         fondoOscuro.style.display = "none";
@@ -112,8 +108,14 @@ function crearContenidoLista(nombre, descripcion, color) {
     addToLista.onclick = () => activarEventoAddToLista(listado, nombre);
 }
 
-function eventoOpcionesElementos(nombre) {
-    crearNodo("div", `opciones_${nombre}`, "panelOpciones", "#contenedorListas", "");
+function actualizarContadores() {
+    let contenidoListas = document.querySelectorAll(".contenidoListas");
+    let cantidadElementosLista = document.querySelectorAll(".cantidadElementosLista");
+    for (let i = 0; i < contenidoListas.length; i++) {
+        let elementos = contenidoListas[i].getElementsByClassName("elementos");
+        for (let j = 0; j < cantidadElementosLista.length; j++)
+            cantidadElementosLista[i].textContent = elementos.length;
+    }
 }
 
 function activarEventoAddToLista(listado, nombreLista) {
@@ -131,11 +133,18 @@ function activarEventoAddToLista(listado, nombreLista) {
                 let opcionesElementos = crearNodo("img", ``, "opcionesElementos", `#cont_elem_${nombre}`, "");
                 opcionesElementos.src = "./media/menu.png"
                 crearNodo("li", ``, "elementos", `#cont_elem_${nombre}`, nombre);
-                eventoOpcionesElementos(nombre);
+                crearNodo("div", `opciones_${nombre}`, "panelOpciones", "#contenedorListas", "");
+                crearNodo("p", `titulo_opciones_${nombre}`, "tituloOpcionesNombre", `#opciones_${nombre}`, nombre);
+                crearNodo("div", `empezar_${nombre}`, "botonesOpciones", `#opciones_${nombre}`, "Empezar");
+                crearNodo("div", `terminar_${nombre}`, "botonesOpciones", `#opciones_${nombre}`, "Terminar");
+                crearNodo("div", `proximos_${nombre}`, "botonesOpciones", `#opciones_${nombre}`, "Próximos");
+                crearNodo("div", `eliminar_${nombre}`, "botonesOpciones", `#opciones_${nombre}`, "Eliminar");
+                document.getElementById(`opciones_${nombre}`).style.display = "none";
                 opcionesElementos.onclick = () => {
                     fondoOscuro.style.display = "flex";
                     document.getElementById(`opciones_${nombre}`).style.display = "flex";
                 }
+                actualizarContadores();
             }
             document.getElementById("inputNombreElemento").value = "";
         }

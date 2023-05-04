@@ -319,14 +319,35 @@ footer {
     border-radius: 5px;
     color: #333333;
     width: 71%;
-    height: 70%;
-    top: 10%;
+    height: 60%;
+    top: 20%;
     left: 9%;
     position: absolute;
     display: none;
     word-wrap: break-word;
     padding: 1em;
     z-index: 100;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.tituloOpcionesNombre {
+    margin: 1em 0 1em 0;
+    font-size: 20px;
+}
+
+.botonesOpciones {
+    width: 50%;
+    height: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: whitesmoke;
+    border-radius: 5px;
+    background: linear-gradient(20deg, #9775FE, #FEAAA6);
+    margin: 1em 0 1em 0;
 }
 
 @keyframes pulsado {
