@@ -195,7 +195,7 @@ function animacion(elem) {
 // BACKEND
 
 async function cargarDatos() {
-    const response = await fetch("http://127.0.0.1:8090/api/collections/listas/records");
+    const response = await fetch("https://listadiegocarmen.pockethost.io/api/collections/listas/records");
     const jsonData = await response.json();
     console.log(jsonData.items);
     for (let i = 0; i < jsonData.items.length; i++)
@@ -203,7 +203,7 @@ async function cargarDatos() {
 }
 
 async function aniadirDatos(datos) {
-    const url = "http://127.0.0.1:8090/api/collections/listas/records";
+    const url = "https://listadiegocarmen.pockethost.io/api/collections/listas/records";
     const options = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
