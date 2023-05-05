@@ -1,4 +1,7 @@
 window.onload = () => {
+
+    cargarDatos()
+
     let fondoOscuro = document.querySelector("#fondoOscuro");
     let creadorListas = document.querySelector("#creadorListas");
     let contadorUnnamed = 1;
@@ -29,7 +32,7 @@ window.onload = () => {
     document.getElementById("crear").onclick = () => {
         let nombre = document.getElementById("inputNombre").value;
         let descripcion = document.getElementById("inputDescripcion").value;
-        contadorUnnamed = crearLista(nombre, descripcion, contadorUnnamed);
+        contadorUnnamed = crearLista(nombre, descripcion, contadorUnnamed, "", false);
         fondoOscuro.style.display = "none";
         creadorListas.style.display = "none";
         reestablecerCreador();
@@ -56,7 +59,7 @@ function crearNodo(etiqueta, id, clase, padre, textContent) {
     return elem;
 }
 
-function crearLista(nombre, descripcion, contadorUnnamed) {
+function crearLista(nombre, descripcion, contadorUnnamed, color, vieneDeAPI) {
     if (nombre == "ftuser") {
         // Cositas
     } else {
@@ -65,7 +68,8 @@ function crearLista(nombre, descripcion, contadorUnnamed) {
             contadorUnnamed++;
         }
         if (nombre.length > 9) nombre = nombre.slice(0, 9);
-        if (nombre.includes(" ")) nombre = nombre.replace(" ", "_");
+        for (let i = 0; i < nombre.length; i++)
+            if (nombre.includes(" ")) nombre = nombre.replace(" ", "_");
         let nombresListas = document.getElementsByClassName("nombres");
         for (let i = 0; i < nombresListas.length; i++)
             if (nombresListas[i].textContent.toLocaleLowerCase() == nombre.toLocaleLowerCase()) {
@@ -78,12 +82,15 @@ function crearLista(nombre, descripcion, contadorUnnamed) {
         let lista = crearNodo("div", nombre, "lista", "#contenedorListas", "")
         crearNodo("h5", nombre, "nombres", `#${nombre}`, nombre)
         crearNodo("div", "", "cantidadElementosLista", `#${nombre}`, "0")
-        let color = "";
         for (let i = 0; i < document.querySelectorAll("input[type=radio]").length; i++)
             if (document.querySelectorAll("input[type=radio]")[i].checked) color = document.querySelectorAll("input[type=radio]")[i].id;
             if (color == "") color = "#9775FE";
         lista.style.backgroundColor = color;
         activarEventoLista(nombre, descripcion, color);
+        if (!vieneDeAPI) {
+            const datos = { titulo: nombre, descripcion: descripcion, color: color, elementos: null };
+            aniadirDatos(datos);
+        }
     }
     return contadorUnnamed;
 }
@@ -124,11 +131,13 @@ function activarEventoAddToLista(listado, nombreLista) {
     document.querySelector("#formuNombre input[type=button]").onclick = () => {
         let nombre = document.getElementById("inputNombreElemento").value;
         if (nombre.charAt(0) !== " " && nombre !== "") {
-            let elementos = document.querySelectorAll(`#contenedor_${nombreLista} ul div .elementos`);
+            let todosLosElementos = document.querySelectorAll(`.elementos`);
             let repetido = false;
-            for (let i = 0; i < elementos.length; i++)
-                if (elementos[i].textContent.toLocaleLowerCase() == nombre.toLocaleLowerCase()) repetido = true;
+            for (let i = 0; i < todosLosElementos.length; i++)
+                if (todosLosElementos[i].textContent.toLocaleLowerCase() == nombre.toLocaleLowerCase()) repetido = true;
             if (repetido == false) {
+                for (let i = 0; i < nombre.length; i++)
+                    if (nombre.includes(" ")) nombre = nombre.replace(" ", "_");
                 crearNodo("div", `cont_elem_${nombre}`, "contenedorElementos", `#${listado.id}`, "");
                 let opcionesElementos = crearNodo("img", ``, "opcionesElementos", `#cont_elem_${nombre}`, "");
                 opcionesElementos.src = "./media/menu.png"
@@ -182,3 +191,24 @@ function animacion(elem) {
     document.getElementById(elem).style.animation = "pulsado 0.3s";
     setTimeout(() => { document.getElementById(elem).style.animation = ""; }, 300);
 }
+
+// BACKEND
+
+async function cargarDatos() {
+    const response = await fetch("http://127.0.0.1:8090/api/collections/listas/records");
+    const jsonData = await response.json();
+    console.log(jsonData.items);
+    for (let i = 0; i < jsonData.items.length; i++)
+        crearLista(jsonData.items[i].titulo, jsonData.items[i].descripcion, 0, jsonData.items[i].color, true)
+}
+
+async function aniadirDatos(datos) {
+    const url = "http://127.0.0.1:8090/api/collections/listas/records";
+    const options = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(datos),
+    };
+
+    await fetch(url, options);
+  }
